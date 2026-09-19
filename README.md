@@ -23,7 +23,10 @@ compiled from Rust.
 │   └── tests/i_test.rs          # Native tests (round-trip + real header)
 ├── tools/gen_test_luks.py       # Independent Python implementation (fixture)
 └── ui/                          # Svelte + Vite
-    └── src/App.svelte           # Interface
+    ├── public/hashcat-29511.txt # Hash in hashcat format (served as-is)
+    └── src/
+        ├── App.svelte           # Interface + hash router (#/hashcat)
+        └── HashcatPage.svelte   # Pastebin-style hashcat hash page
 ```
 
 ## Build & run
@@ -54,6 +57,10 @@ cd ui/dist && python3 -m http.server 8000
 
 The app has two targets: **Real target** (the embedded Tails LUKS1 header) and
 **Test data** (a synthetic header with passphrase `testpass`).
+
+The **hashcat hash** (mode 14600) is available on its own pastebin-style page at
+`#/hashcat` (linked from the main screen). It is served as the static file
+`ui/public/hashcat-29511.txt`, with copy and download buttons.
 
 ## Tests
 

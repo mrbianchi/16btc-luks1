@@ -1,5 +1,6 @@
 <script lang="ts">
   import { saveAs } from 'file-saver';
+  import HashcatPage from './HashcatPage.svelte';
 
   export let luks_verify_wasm: (target: string, passphrase: string) => string;
   export let luks_verify_master_key_wasm: (target: string, masterKeyHex: string) => string;
@@ -37,6 +38,18 @@
     success: boolean;
     error?: string;
   }
+
+  let view: 'finder' | 'hashcat' = 'finder';
+
+  function readRoute(): 'finder' | 'hashcat' {
+    const h = location.hash.replace(/^#\/?/, '');
+    return h === 'hashcat' ? 'hashcat' : 'finder';
+  }
+
+  view = readRoute();
+  window.addEventListener('hashchange', () => {
+    view = readRoute();
+  });
 
   let target: 'real' | 'test' = (localStorage.getItem('target') || 'real') as 'real' | 'test';
   let info: LuksInfo | null = null;
@@ -171,9 +184,15 @@
   }
 </script>
 
+{#if view === 'hashcat'}
+  <HashcatPage on:back={() => (location.hash = '')} />
+{:else}
 <main>
   <h1>LUKS Finder</h1>
   <p class="subtitle">{target === 'real' ? 'Tails 0.20.1 · persistent partition' : 'Test data (synthetic fixture)'}</p>
+  <p class="nav-links">
+    <a href="#/hashcat">Ver hash de hashcat</a>
+  </p>
 
   <div class="target-switch">
     <button class:active={target === 'real'} on:click={() => (target = 'real')}>Real target</button>
@@ -267,6 +286,7 @@
     <button on:click={downloadAttempts}>Download attempts</button>
   </div>
 </main>
+{/if}
 
 <style>
   :global(body) {
@@ -303,6 +323,20 @@
     color: #888;
     margin-top: 0.25rem;
     margin-bottom: 1rem;
+  }
+
+  .nav-links {
+    margin: 0 0 1.5rem;
+  }
+
+  .nav-links a {
+    color: #646cff;
+    text-decoration: none;
+    font-size: smaller;
+  }
+
+  .nav-links a:hover {
+    text-decoration: underline;
   }
 
   .target-switch {
