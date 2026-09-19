@@ -1,0 +1,12 @@
+# Rust / WASM build artifacts
+wasm/target/
+wasm/pkg/
+
+# Node
+ui/node_modules/
+ui/dist/
+
+# OS junk (Windows Zone.Identifier alternate data stream files)
+*Zone.Identifier
+.DS_Store
+Thumbs.db

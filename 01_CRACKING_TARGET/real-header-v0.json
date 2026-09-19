@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "target_id": "sha256:6a8c5add8c8110867771123c378d0a67efb2def92ad3dd82aa1e76080b2d1250",
+  "header_sha256": "6a8c5add8c8110867771123c378d0a67efb2def92ad3dd82aa1e76080b2d1250",
+  "header_size": 2097664,
+  "luks_uuid": "55645f1a-f8fd-490f-b3e4-862dddde4e08",
+  "source_device_or_image": null,
+  "extraction_method": null,
+  "extracted_at": null,
+  "extracted_at_precision": "unknown",
+  "derived_from_artifact_id": "artifact:myluksdrive-luks-header",
+  "independently_reextracted": false,
+  "created_by_event_id": "EV-000004"
+}
+
